@@ -1,7 +1,8 @@
-import express from "express";
+import express, { Request } from "express";
 import cors from "cors";
 import { sic_codes } from "./assets/sic_codes";
 import { searchBySicCodeRouter } from "./routes";
+import { MongoDbClient } from "./mongodb";
 
 const app = express();
 const port = 3000;
@@ -16,7 +17,9 @@ app.get("/sic_codes", (req, res) => {
   res.send(sic_codes);
 });
 
+
 app.use(searchBySicCodeRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

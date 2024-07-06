@@ -1,3 +1,3 @@
-const helloworld = ()=>{
-    console.log()
-}
+import { filterSecCodes } from "./searchBySicCodeRouter";
+
+export { filterSecCodes };
