@@ -2,7 +2,7 @@ import express, { Request } from "express";
 import cors from "cors";
 import { sic_codes } from "./assets/sic_codes";
 import { searchBySicCodeRouter } from "./routes";
-import { MongoDbClient } from "./mongodb";
+
 
 const app = express();
 const port = 3000;
@@ -16,7 +16,6 @@ app.get("/ping", (req, res) => {
 app.get("/sic_codes", (req, res) => {
   res.send(sic_codes);
 });
-
 
 app.use(searchBySicCodeRouter);
 
