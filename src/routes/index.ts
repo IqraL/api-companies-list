@@ -1,3 +1,3 @@
-import { searchBySicCodeRouter } from "./searchBySicCodes";
+import { searchBy } from "./searchBy";
 
-export { searchBySicCodeRouter };
+export { searchBy };

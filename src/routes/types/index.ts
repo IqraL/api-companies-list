@@ -9,3 +9,11 @@ export type FilterSecCodesRequest = Request<
   {},
   {}
 >;
+
+export type FilterByNumberOfEmployees = Request<
+  {},
+  {},
+  { greaterThenNoOfEmployees: number; lessThenNoOfEmployees: number },
+  {},
+  {}
+>;
