@@ -23,7 +23,6 @@ export const filterSecCodes = async (
 
     const results = await cursor.toArray();
 
-    // Optionally, you can also return the total count of documents matching the query
     const totalCount = await client
       .db("companies-db")
       .collection("information")
