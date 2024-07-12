@@ -6,6 +6,9 @@ export const filterSecCodes = async (
   res: Response
 ) => {
   try {
+    const page = req.body.page || 1;
+    const pageSize = req.body.pageSize || 25;
+
     const client = await MongoDbClient.getClient();
     const cursor = await client
       .db("companies-db")
@@ -14,22 +17,25 @@ export const filterSecCodes = async (
       .sort({
         [req.body.sort || "companyName"]: req.body.sortDirection || 1,
         _id: 1,
-      });
+      })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
 
-    res.setHeader("Content-Type", "application/json");
-    res.write("["); // Start the JSON array
+    const results = await cursor.toArray();
 
-    let first = true;
-    for await (const doc of cursor) {
-      if (!first) {
-        res.write(","); // Add a comma between documents
-      }
-      first = false;
-      res.write(JSON.stringify(doc)); // Write the document as a JSON string
-    }
+    // Optionally, you can also return the total count of documents matching the query
+    const totalCount = await client
+      .db("companies-db")
+      .collection("information")
+      .countDocuments({ sic_codes: { $in: req.body.sic_codes } });
 
-    res.write("]"); // End the JSON array
-    res.end();
+    res.send({
+      page,
+      pageSize,
+      maxPage: Math.floor(totalCount / pageSize + 1),
+      totalCount,
+      results,
+    });
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Internal Server Error" });

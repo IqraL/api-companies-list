@@ -11,7 +11,13 @@ type SortType =
 export type FilterSecCodesRequest = Request<
   {},
   {},
-  { sic_codes: string[]; sort: SortType; sortDirection: -1 | 1 },
+  {
+    sic_codes: string[];
+    sort: SortType;
+    sortDirection: -1 | 1;
+    page: number,
+    pageSize: number
+  },
   {},
   {}
 >;
