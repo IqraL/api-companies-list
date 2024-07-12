@@ -4,14 +4,14 @@ export { Response };
 type SortType =
   | "companyName"
   | "companyNumber"
-  | "CompanyStatus"
-  | "NumberOfEmployees"
-  | "Industry"
-  | "";
+  | "company_status"
+  | "numberOfEmployees"
+  | "sic_codes";
+
 export type FilterSecCodesRequest = Request<
   {},
   {},
-  { sic_codes: string[]; sort: SortType },
+  { sic_codes: string[]; sort: SortType; sortDirection: -1 | 1 },
   {},
   {}
 >;

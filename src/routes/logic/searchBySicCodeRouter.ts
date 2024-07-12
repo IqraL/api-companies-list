@@ -11,7 +11,10 @@ export const filterSecCodes = async (
       .db("companies-db")
       .collection("information")
       .find({ sic_codes: { $in: req.body.sic_codes } })
-      .sort({ companyName: 1, _id: 1 });
+      .sort({
+        [req.body.sort || "companyName"]: req.body.sortDirection || 1,
+        _id: 1,
+      });
 
     res.setHeader("Content-Type", "application/json");
     res.write("["); // Start the JSON array
